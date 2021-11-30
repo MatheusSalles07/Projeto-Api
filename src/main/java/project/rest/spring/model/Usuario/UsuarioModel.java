@@ -1,18 +1,19 @@
 package project.rest.spring.model.Usuario;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
-@Table(name = "banco")
-public class Usuario {
+@Table(name = "Usuario")
+public class UsuarioModel {
 
     @Id
-    @Column(name = "Nome")
-    private String Nome;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "nome")
+    private String nome;
 
     @Column(name = "cpf")
     private String cpf;
@@ -21,7 +22,7 @@ public class Usuario {
     private String email;
 
     @Column(name = "cep")
-    private Integer cep;
+    private String cep;
 
     @Column(name = "logradouro")
     private String logradouro;
@@ -36,13 +37,16 @@ public class Usuario {
     private String uf;
 
 
-    public Usuario(){
+    public UsuarioModel(){
 
     }
 
-    public Usuario(String nome, String CPF, String email, Integer cep, String logradouro, String bairro, String localidade, String uf) {
-        Nome = nome;
-        this.cpf = CPF;
+
+    public UsuarioModel(Integer id, String nome, String cpf, String email, String cep, String logradouro, String bairro, String localidade, String uf) {
+
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
         this.email = email;
         this.cep = cep;
         this.logradouro = logradouro;
@@ -51,21 +55,28 @@ public class Usuario {
         this.uf = uf;
     }
 
-
-    public String getNome() {
-        return Nome;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNome(String nome) {
-        Nome = nome;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getCPF() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCPF(String CPF) {
-        this.cpf = CPF;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        nome = nome;
     }
 
     public String getEmail() {
@@ -76,11 +87,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -118,9 +129,10 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "Nome='" + Nome + '\'' +
-                ", CPF='" + cpf + '\'' +
+        return "UsuarioModel{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
                 ", email='" + email + '\'' +
                 ", cep=" + cep +
                 ", logradouro='" + logradouro + '\'' +
