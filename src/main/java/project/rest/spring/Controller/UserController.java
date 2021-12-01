@@ -46,10 +46,10 @@ public class UserController {
         return ResponseEntity.ok(userService.save(usuarioModel));
     }
 
-    @DeleteMapping(path = "/delete")
-    public String delete(@Param("cpf")String cpf){
-        ResponseEntity.ok(userService.delete(cpf));
-        return "Usuario Deletado com Sucesso !!! ";
-    }
+//    @DeleteMapping(path = "/delete")
+//    public String delete(@Param("cpf")String cpf){
+//        ResponseEntity.ok(userService.delete(cpf));
+//        return "Usuario Deletado com Sucesso !!! ";
+//    }
 
 }

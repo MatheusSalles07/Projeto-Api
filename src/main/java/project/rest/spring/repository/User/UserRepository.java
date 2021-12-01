@@ -21,9 +21,10 @@ public interface UserRepository extends JpaRepository <UsuarioModel, Integer> {
     @Query (value = "SELECT * FROM Usuario WHERE cpf = :cpf", nativeQuery = true)
     Optional<UsuarioModel> findByCpf (@Param("cpf") String cpf);
 
-    @Query (value = "",nativeQuery = true)
-    Optional<UsuarioModel> buscaPorCpf (@Param("cpf")String cpf);
-
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE Usuario set nome = :nome, email = :email WHERE cpf = :cpf",nativeQuery = true)
+    public void update();
 
 
     @Modifying
