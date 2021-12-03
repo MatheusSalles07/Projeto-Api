@@ -36,9 +36,7 @@ public class UsuarioModel {
     @Column(name = "uf")
     private String uf;
 
-
     public UsuarioModel(){
-
     }
 
 

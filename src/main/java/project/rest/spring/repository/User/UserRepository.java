@@ -23,14 +23,17 @@ public interface UserRepository extends JpaRepository <UsuarioModel, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Usuario set nome = :nome, email = :email WHERE cpf = :cpf",nativeQuery = true)
-    public void update();
+    @Query(value = "UPDATE Usuario set nome = :nome, email = :email " +
+            "where cpf = :cpf ",nativeQuery = true)
+    void update(@Param("nome") String nome,
+                       @Param("email") String email,
+                       @Param("cpf")String cpf);
 
 
     @Modifying
     @Transactional
     @Query(value = "insert into Usuario (nome, cpf ,email)  values (:name, :cpf, :email) ",nativeQuery = true)
-    public void  saveUser(@Param("name")String name,
+    void  saveUser(@Param("name")String name,
                                  @Param("cpf")String cpf,
                                  @Param("email")String email);
 

@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/usuario")
 public class UserController {
 
-    @Autowired
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -27,8 +27,8 @@ public class UserController {
         return ResponseEntity.ok(userService.usuarioModelList());
     }
 
-    @GetMapping("/cpf")
-    public ResponseEntity<Optional<UsuarioModel>> findByCpf(@Param("cpf")String cpf){
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<UsuarioModel> findByCpf(@PathVariable("cpf")String cpf){
         return ResponseEntity.ok(userService.buscaPorCpf(cpf));
     }
 
@@ -40,16 +40,10 @@ public class UserController {
 
     }
 
-    @PutMapping(path = "/update")
-    public ResponseEntity<Object> update(@RequestBody UsuarioModel usuarioModel, @Param("cpf")String cpf){
+    @PutMapping(path = "/update/{cpf}")
+    public ResponseEntity<Object> update(@RequestBody UsuarioModel usuarioModel, @PathVariable("cpf")String cpf){
 
-        return ResponseEntity.ok(userService.save(usuarioModel));
+        return userService.update(usuarioModel, cpf);
     }
-
-//    @DeleteMapping(path = "/delete")
-//    public String delete(@Param("cpf")String cpf){
-//        ResponseEntity.ok(userService.delete(cpf));
-//        return "Usuario Deletado com Sucesso !!! ";
-//    }
 
 }

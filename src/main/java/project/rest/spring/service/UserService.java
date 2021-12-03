@@ -1,11 +1,11 @@
 package project.rest.spring.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import project.rest.spring.model.Usuario.UsuarioModel;
 import project.rest.spring.repository.User.UserRepository;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -27,8 +26,12 @@ public class UserService {
 
     }
 
-    public Optional<UsuarioModel> buscaPorCpf(String Cpf) {
-        return userRepository.findByCpf(Cpf);
+    public UsuarioModel buscaPorCpf(String cpf) {
+        return userRepository.findAll()
+                .stream()
+                .filter(user -> user.getCpf().equals(cpf))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF not Found"));
 
     }
 
@@ -41,22 +44,28 @@ public class UserService {
         return ResponseEntity.ok("Usuario Inserido");
     }
 
-    public ResponseEntity<Object> update(UsuarioModel usuarioModel, String cpf){
+    public ResponseEntity<Object> update(UsuarioModel usuario, String cpf) {
+
         try {
 
-            UsuarioModel user = buscaPorCpf(cpf);
+        UsuarioModel user = buscaPorCpf(cpf);
 
-            if (user.getCpf()!= null){
+        if (user.getCpf()!= null) {
 
-                UserRepository.update(
-                        usuarioModel.getName(),
-                        usuarioModel.getEmail(),
-                        user.getCpf()
-                );
-                return ResponseEntity.ok("Atualizado Com Sucesso !!! ");
-            }
-            
-      
+            userRepository.update(
+                    usuario.getNome(),
+                    usuario.getEmail(),
+                    user.getCpf());
 
+            return ResponseEntity.ok("Atualizado com Sucesso!");
+        }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
+
+
 }
