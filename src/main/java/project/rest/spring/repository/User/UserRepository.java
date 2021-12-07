@@ -37,6 +37,7 @@ public interface UserRepository extends JpaRepository <UsuarioModel, Integer> {
                                  @Param("cpf")String cpf,
                                  @Param("email")String email);
 
+
 }
 
 

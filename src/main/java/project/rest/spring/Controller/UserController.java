@@ -23,27 +23,33 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<UsuarioModel>> listResponseEntity(){
+    public ResponseEntity<List<UsuarioModel>> listResponseEntity() {
         return ResponseEntity.ok(userService.usuarioModelList());
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<UsuarioModel> findByCpf(@PathVariable("cpf")String cpf){
+    public ResponseEntity<UsuarioModel> findByCpf(@PathVariable("cpf") String cpf) {
         return ResponseEntity.ok(userService.buscaPorCpf(cpf));
     }
 
     @PostMapping
     @RequestMapping(path = "/insert")
-    public ResponseEntity<Object> insert(@RequestBody UsuarioModel usuarioModel){
+    public ResponseEntity<Object> insert(@RequestBody UsuarioModel usuarioModel) {
 
         return ResponseEntity.ok(userService.save(usuarioModel));
 
     }
 
     @PutMapping(path = "/update/{cpf}")
-    public ResponseEntity<Object> update(@RequestBody UsuarioModel usuarioModel, @PathVariable("cpf")String cpf){
+    public ResponseEntity<Object> update(@RequestBody UsuarioModel usuarioModel, @PathVariable("cpf") String cpf) {
 
         return userService.update(usuarioModel, cpf);
     }
 
+    @DeleteMapping(path = "/delete/{cpf}")
+    public String delete(@PathVariable("cpf") String cpf) {
+        userService.delete(cpf);
+        return "Usuario Deletado! ";
+
+    }
 }

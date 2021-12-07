@@ -67,5 +67,8 @@ public class UserService {
         return null;
     }
 
+    public void delete(String cpf){
+        userRepository.delete(buscaPorCpf(cpf));
+    }
 
 }

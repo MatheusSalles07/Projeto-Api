@@ -74,7 +74,7 @@ public class UsuarioModel {
     }
 
     public void setNome(String nome) {
-        nome = nome;
+        this.nome = nome;
     }
 
     public String getEmail() {
